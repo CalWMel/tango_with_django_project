@@ -23,8 +23,11 @@ def index(request):
 
 
 def about(request):
-    context_dict = {'namemessage': 'Calum Woods :)'}
-    return render(request, 'rango/about.html', context=context_dict)
+    # prints out whether the method is a GET or a POST
+    print(request.method)
+    # prints out the username, if no one is logged in it prints `AnonymousUser`
+    print(request.user)
+    return render(request, 'rango/about.html', {})
 
 
 def show_category(request, category_name_slug):
@@ -75,7 +78,7 @@ def add_page(request, category_name_slug):
 
     # You cannot add a page to a Category that does not exist...
     if category is None:
-        return redirect('/rango/')
+        return redirect(reverse('rango:index'))
 
     form = PageForm()
 
